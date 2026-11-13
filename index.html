@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herbal Plants | Mini Project</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f4f8f1;
+    color: #243b2b;
+}
+
+header {
+    background: #174d32;
+    color: white;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 22px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #b9e8a8;
+}
+
+.hero {
+    min-height: 430px;
+    background: linear-gradient(90deg, rgba(8,45,25,.88), rgba(8,45,25,.35)),
+    url("https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1600&q=85");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 60px 10%;
+    color: white;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    background: #9bd66b;
+    color: #173c25;
+    padding: 13px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    padding: 65px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #174d32;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #637466;
+    line-height: 1.6;
+}
+
+.about {
+    text-align: center;
+    max-width: 850px;
+    margin: auto;
+    line-height: 1.8;
+    font-size: 17px;
+}
+
+.search-box {
+    display: block;
+    width: min(100%, 500px);
+    margin: 0 auto 35px;
+    padding: 15px 20px;
+    border: 1px solid #c7d9c8;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-box:focus {
+    border-color: #27834d;
+}
+
+.plant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.plant-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(0,0,0,.08);
+    transition: .3s;
+}
+
+.plant-card:hover {
+    transform: translateY(-7px);
+}
+
+.plant-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.plant-info {
+    padding: 22px;
+}
+
+.plant-info h3 {
+    color: #1d633b;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.plant-info p {
+    color: #637466;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.details-btn {
+    border: none;
+    background: #1d633b;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.details-btn:hover {
+    background: #103d25;
+}
+
+.benefits {
+    background: #e5f0df;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+}
+
+.benefit {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.benefit h3 {
+    color: #1d633b;
+    margin-bottom: 10px;
+}
+
+.benefit p {
+    color: #637466;
+    line-height: 1.6;
+}
+
+footer {
+    background: #174d32;
+    color: white;
+    text-align: center;
+    padding: 28px 15px;
+    line-height: 1.8;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 10;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 100%;
+    line-height: 1.7;
+    position: relative;
+}
+
+.modal-content h2 {
+    color: #1d633b;
+    margin-bottom: 12px;
+}
+
+.close {
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    border: none;
+    background: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+#modalText {
+    margin-top: 10px;
+}
+
+@media(max-width: 650px) {
+    header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav a {
+        margin: 5px 8px;
+        display: inline-block;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    section {
+        padding: 45px 6%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🌿 Herbal World</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#plants">Plants</a>
+        <a href="#benefits">Benefits</a>
+    </nav>
+</header>
+
+<div class="hero" id="home">
+    <div class="hero-content">
+        <h1>Discover the World of Herbal Plants</h1>
+        <p>
+            Explore nature's green treasures. Learn about traditional
+            uses, important features and growing methods of herbal plants.
+        </p>
+        <a href="#plants" class="btn">Explore Plants</a>
+    </div>
+</div>
+
+<section id="about">
+    <div class="section-title">
+        <h2>About Our Project</h2>
+        <p>Learning about the importance of herbal plants in our daily lives.</p>
+    </div>
+    <div class="about">
+        Herbal plants are an important part of nature. They have been used
+        in traditional practices for generations. This project introduces
+        different herbal plants, their characteristics, traditional uses
+        and methods of cultivation. Our aim is to create awareness about
+        protecting and growing useful plants.
+    </div>
+</section>
+
+<section id="plants">
+    <div class="section-title">
+        <h2>Explore Herbal Plants</h2>
+        <p>Discover some popular and useful plants.</p>
+    </div>
+
+    <input type="text" class="search-box" id="search"
+    placeholder="🔍 Search for a herbal plant...">
+
+    <div class="plant-grid" id="plantGrid">
+
+        <div class="plant-card" data-name="tulsi holy basil">
+            <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=700&q=80" alt="Tulsi plant">
+            <div class="plant-info">
+                <h3>Tulsi</h3>
+                <p>Known as Holy Basil, Tulsi is a popular plant in Indian homes.</p>
+                <button class="details-btn" onclick="showDetails('Tulsi','Scientific name: Ocimum tenuiflorum. Traditional uses include herbal teas and household wellness practices. It grows well in sunlight and well-drained soil.')">View Details</button>
+            </div>
+        </div>
+
+        <div class="plant-card" data-name="aloe vera">
+            <img src="https://images.unsplash.com/photo-1596547609652-9cf5d8d7e5e2?auto=format&fit=crop&w=700&q=80" alt="Aloe vera plant">
+            <div class="plant-info">
+                <h3>Aloe Vera</h3>
+                <p>A succulent plant known for its thick, water-storing leaves.</p>
+                <button class="details-btn" onclick="showDetails('Aloe Vera','Scientific name: Aloe vera. Its leaf gel is traditionally used in skin-care products. It needs bright light and well-drained soil.')">View Details</button>
+            </div>
+        </div>
+
+        <div class="plant-card" data-name="neem">
+            <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=700&q=80" alt="Neem leaves">
+            <div class="plant-info">
+                <h3>Neem</h3>
+                <p>A well-known tree valued in traditional Indian practices.</p>
+                <button class="details-btn" onclick="showDetails('Neem','Scientific name: Azadirachta indica. Neem leaves and seeds have traditional uses. The tree grows well in warm climates and sunlight.')">View Details</button>
+            </div>
+        </div>
+
+        <div class="plant-card" data-name="ashwagandha">
+            <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=700&q=80" alt="Ashwagandha plant">
+            <div class="plant-info">
+                <h3>Ashwagandha</h3>
+                <p>A traditional herb also known as Indian Winter Cherry.</p>
+                <button class="details-btn" onclick="showDetails('Ashwagandha','Scientific name: Withania somnifera. Its roots are used in traditional Ayurvedic preparations. It grows in warm conditions and well-drained soil.')">View Details</button>
+            </div>
+        </div>
+
+        <div class="plant-card" data-name="turmeric">
+            <img src="https://images.unsplash.com/photo-1615485500704-8e990f9900f1?auto=format&fit=crop&w=700&q=80" alt="Turmeric">
+            <div class="plant-info">
+                <h3>Turmeric</h3>
+                <p>A common kitchen spice with a long history of traditional use.</p>
+                <button class="details-btn" onclick="showDetails('Turmeric','Scientific name: Curcuma longa. Its yellow rhizome is used in cooking and traditional preparations. It prefers warm, humid conditions and moist soil.')">View Details</button>
+            </div>
+        </div>
+
+        <div class="plant-card" data-name="brahmi">
+            <img src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=700&q=80" alt="Green herbal plant">
+            <div class="plant-info">
+                <h3>Brahmi</h3>
+                <p>A small creeping herb traditionally used in Ayurveda.</p>
+                <button class="details-btn" onclick="showDetails('Brahmi','Scientific name: Bacopa monnieri. It is traditionally used in Ayurvedic preparations. It grows in moist soil and can thrive in partial sunlight.')">View Details</button>
+            </div>
+        </div>
+
+    </div>
+    <p id="noResults" style="display:none;text-align:center;margin-top:25px;">
+        No plants found. Try another name.
+    </p>
+</section>
+
+<section class="benefits" id="benefits">
+    <div class="section-title">
+        <h2>Importance of Herbal Plants</h2>
+        <p>Why should we learn about and protect herbal plants?</p>
+    </div>
+
+    <div class="benefit-grid">
+        <div class="benefit">
+            <h3>🌱 Natural Resources</h3>
+            <p>Herbal plants are valuable parts of our natural environment.</p>
+        </div>
+        <div class="benefit">
+            <h3>🌍 Environment</h3>
+            <p>Plants support biodiversity and contribute to a healthy ecosystem.</p>
+        </div>
+        <div class="benefit">
+            <h3>📚 Traditional Knowledge</h3>
+            <p>They help us understand traditional plant knowledge and practices.</p>
+        </div>
+        <div class="benefit">
+            <h3>🏡 Home Gardening</h3>
+            <p>Many herbs can be grown in home gardens and pots.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <h3>🌿 Herbal Plants Mini Project</h3>
+    <p>Created for Educational Purpose</p>
+    <p>© 2026 Herbal World | All Rights Reserved</p>
+    <small>Traditional uses are provided for educational information only, not as medical advice.</small>
+</footer>
+
+<div class="modal" id="plantModal" onclick="closeOutside(event)">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal()">×</button>
+        <h2 id="modalTitle"></h2>
+        <p id="modalText"></p>
+    </div>
+</div>
+
+<script>
+function showDetails(name, details) {
+    document.getElementById("modalTitle").innerText = name;
+    document.getElementById("modalText").innerText = details;
+    document.getElementById("plantModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("plantModal").style.display = "none";
+}
+
+function closeOutside(event) {
+    if (event.target.id === "plantModal") {
+        closeModal();
+    }
+}
+
+document.getElementById("search").addEventListener("input", function() {
+    let searchValue = this.value.toLowerCase();
+    let cards = document.querySelectorAll(".plant-card");
+    let count = 0;
+
+    cards.forEach(function(card) {
+        let plantName = card.getAttribute("data-name");
+        if (plantName.includes(searchValue)) {
+            card.style.display = "block";
+            count++;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    document.getElementById("noResults").style.display =
+        count === 0 ? "block" : "none";
+});
+</script>
+
+</body>
+</html>
